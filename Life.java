@@ -10,7 +10,7 @@ public class Life
       randGen = new Random();
    }
    
-   public void survive(List<Animal> theAnimals)
+   public void survive(ArrayList<Animal> theAnimals)
    {
       for(int i = 0; i < theAnimals.size(); i++)
       {
@@ -23,12 +23,12 @@ public class Life
          else
          {
             System.out.println(one.getName() + " encounters " + two.getName());
-            // returns D->Defend, A->attack, I->Ignore
+            // returns D->Defend, A->Attack, I->Ignore
             
-            char rOne = one.interact(two);
+            char rOne = one.run(two);
             
             
-            char rTwo = two.interact(one);
+            char rTwo = two.run(one);
             
             
             if((rOne == 'I' && rTwo == 'I') || 
@@ -52,13 +52,34 @@ public class Life
             }
             else if(rTwo == 'A'){
                System.out.println(".." + one.getName() + " is attacked by " + two.getName() + "!");
-               
+               if (rOne == 'D'){
+                  System.out.println("..." + one.getName() + " defends itself!");
+                  System.out.println(one.getName() + " is hit for " + (two.getAttackDamage() - one.getNegation()) + "hp!");
+                  one.setDamage(two.getAttackDamage() - one.getNegation());
+               }
+               else{
+                  System.out.println("..." + one.getName() + " is caught unaware...");
+                  System.out.println(one.getName() + " is hit for " + two.getAttackDamage() + "hp!");
+                  one.setDamage(two.getAttackDamage());
+               }
             }
             else if(rOne == 'A' && rTwo == 'A'){
                System.out.println("...They both attack each other!");
+               System.out.println(one.getName() + " is hit for " + two.getAttackDamage() + "hp!");
+               one.setDamage(two.getAttackDamage());
+               System.out.println(two.getName() + " is hit for " + one.getAttackDamage() + "hp!");
+               two.setDamage(one.getAttackDamage());
             }
-            else if(rOne == '
             
+            if (one.getHealth() <= 0){
+               System.out.println(one.getName() + " dies!");
+               theAnimals.remove(i);
+               i--;
+            }
+            if(two.getHealth() <= 0){
+               System.out.println(two.getName() + " dies!");
+               theAnimals.remove(opp);
+            }
          }
       }
    }

@@ -1,5 +1,4 @@
 
-
 public abstract class Animal
 {
    protected String name;
@@ -21,7 +20,7 @@ public abstract class Animal
    final public int getAccuracy() { return this.accuracy; }
    
    final public void setDamage(int damage){
-      if(damage >= 0)
+      if(damage > 0)
          this.health -= damage;
    }
    
@@ -29,11 +28,23 @@ public abstract class Animal
       return (int)((this.speed * 0.5) + (this.power * 1.0) + (this.accuracy * 0.5));
    }
    
-   public int getNegation(){
+   final public int getNegation(){
       return (int)((this.speed * 1.0) + (this.power * 0.5) + (this.accuracy * 0.5));
    }
    
-   // returns D->Defend, A->attack, I->Ignore
+   final public char run(Animal other){
+      char choice = interact(other);
+      
+      if (choice == 'I'){
+         this.health += (int)(this.health * 0.25);
+      }
+      
+      return choice;
+   }
+   
+   // ToDo: vVv these abstract methods vVv
    public abstract String getName();
+   
+   // returns D->Defend, A->Attack, I->Ignore
    public abstract char interact(Animal other);
 }
