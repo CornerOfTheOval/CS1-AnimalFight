@@ -23,7 +23,7 @@ public class SurvivalOfTheFittest
       {
          Animal checkedAnimal = animals.get(i);
          
-         if(checkedAnimal.getHealth() < checkedAnimal.getSpeed()
+         if(checkedAnimal.getHealth() <= checkedAnimal.getSpeed()
                                       + checkedAnimal.getPower()
                                       + checkedAnimal.getAccuracy()){
             System.out.println(checkedAnimal.getName() + " has decided to cheat...");
@@ -37,7 +37,9 @@ public class SurvivalOfTheFittest
    
    public static void addAnimals()
    {
-      
+      animals.add(new ExampleAnimal("one"));
+      animals.add(new ExampleAnimal("two"));
+      animals.add(new ExampleAnimal("three"));
    }
    
 }

@@ -22,7 +22,7 @@ public class Life
             System.out.println(one.getName() + " encounters no one.");
          else
          {
-            System.out.println(one.getName() + " encounters " + two.getName());
+            System.out.println(one.getName() + " encounters " + two.getName() + ".");
             // returns D->Defend, A->Attack, I->Ignore
             
             char rOne = one.run(two);
@@ -34,8 +34,9 @@ public class Life
             if((rOne == 'I' && rTwo == 'I') || 
                (rOne == 'D' && rTwo == 'D') ||
                (rOne == 'I' && rTwo == 'D') ||
-               (rOne == 'D' && rTwo == 'I'))
+               (rOne == 'D' && rTwo == 'I')){
                System.out.println("...They ignore each other.");
+            }
             else if(rOne == 'A' && rTwo == 'A'){
                System.out.println("...They attack each other!");
                System.out.println(one.getName() + " is hit for " + two.getAttackDamage() + "hp!");
@@ -73,13 +74,15 @@ public class Life
             
             if (one.getHealth() <= 0){
                System.out.println(one.getName() + " dies!");
-               theAnimals.remove(i);
+               theAnimals.remove(one);
                i--;
             }
             if(two.getHealth() <= 0){
                System.out.println(two.getName() + " dies!");
-               theAnimals.remove(opp);
+               theAnimals.remove(two);
             }
+            
+            System.out.println("\n");
          }
       }
    }
