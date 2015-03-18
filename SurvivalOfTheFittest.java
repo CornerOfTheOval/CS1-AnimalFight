@@ -14,10 +14,10 @@ public class SurvivalOfTheFittest
       while(animals.size() > 1)
          life.survive(animals);
          
-      System.out.println("The sole survivor is... " + animals.get(0).toUpperCase());
+      System.out.println("The sole survivor is... " + animals.get(0).getName().toUpperCase());
    }
    
-   public void checkForCheaters()
+   public static void checkForCheaters()
    {
       for(int i = 0; i < animals.size();)
       {
@@ -26,6 +26,7 @@ public class SurvivalOfTheFittest
          if(checkedAnimal.getHealth() < checkedAnimal.getSpeed()
                                       + checkedAnimal.getPower()
                                       + checkedAnimal.getAccuracy()){
+            System.out.println(checkedAnimal.getName() + " has decided to cheat...");
             animals.remove(i);
             continue;                                
          }
@@ -34,7 +35,7 @@ public class SurvivalOfTheFittest
       }
    }
    
-   public void addAnimals()
+   public static void addAnimals()
    {
       
    }

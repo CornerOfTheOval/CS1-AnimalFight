@@ -25,18 +25,18 @@ public abstract class Animal
    }
    
    final public int getAttackDamage(){
-      return (int)((this.speed * 0.5) + (this.power * 1.0) + (this.accuracy * 0.5));
+      return (int)((this.speed * 0.25) + (this.power * 0.50) + (this.accuracy * 0.75));
    }
    
    final public int getNegation(){
-      return (int)((this.speed * 1.0) + (this.power * 0.5) + (this.accuracy * 0.5));
+      return (int)((this.speed * 0.50) + (this.power * 0.25) + (this.accuracy * 0.50));
    }
    
    final public char run(Animal other){
       char choice = interact(other);
       
       if (choice == 'I'){
-         this.health += (int)(this.health * 0.25);
+         this.health += (int)(Math.pow(this.health, -1) * 50);
       }
       
       return choice;

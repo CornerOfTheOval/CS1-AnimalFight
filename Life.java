@@ -36,6 +36,13 @@ public class Life
                (rOne == 'I' && rTwo == 'D') ||
                (rOne == 'D' && rTwo == 'I'))
                System.out.println("...They ignore each other.");
+            else if(rOne == 'A' && rTwo == 'A'){
+               System.out.println("...They attack each other!");
+               System.out.println(one.getName() + " is hit for " + two.getAttackDamage() + "hp!");
+               one.setDamage(two.getAttackDamage());
+               System.out.println(two.getName() + " is hit for " + one.getAttackDamage() + "hp!");
+               two.setDamage(one.getAttackDamage());
+            }
             else if(rOne == 'A'){
                System.out.println("..." + one.getName() + " attacks " + two.getName() + "!");
                if (rTwo == 'D'){
@@ -62,13 +69,6 @@ public class Life
                   System.out.println(one.getName() + " is hit for " + two.getAttackDamage() + "hp!");
                   one.setDamage(two.getAttackDamage());
                }
-            }
-            else if(rOne == 'A' && rTwo == 'A'){
-               System.out.println("...They both attack each other!");
-               System.out.println(one.getName() + " is hit for " + two.getAttackDamage() + "hp!");
-               one.setDamage(two.getAttackDamage());
-               System.out.println(two.getName() + " is hit for " + one.getAttackDamage() + "hp!");
-               two.setDamage(one.getAttackDamage());
             }
             
             if (one.getHealth() <= 0){
