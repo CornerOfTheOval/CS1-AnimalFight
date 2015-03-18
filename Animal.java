@@ -21,7 +21,8 @@ public abstract class Animal
    final public int getAccuracy() { return this.accuracy; }
    
    final public void setDamage(int damage){
-      this.health -= damage;
+      if(damage >= 0)
+         this.health -= damage;
    }
    
    final public int getAttackDamage(){
