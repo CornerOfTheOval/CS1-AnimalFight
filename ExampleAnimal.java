@@ -6,7 +6,7 @@ public class ExampleAnimal extends Animal{
       super.name = name;
    }
 
-   public String getName(){
+   public String toString(){
       return super.name;
    }
    
@@ -17,8 +17,11 @@ public class ExampleAnimal extends Animal{
       else if (new Random().nextBoolean()){
          return 'D';
       }
-      else{
+      else if (new Random().nextBoolean()){
          return 'I';
+      }
+      else{
+         return 'R';
       }
    }
 }

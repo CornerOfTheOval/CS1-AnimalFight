@@ -25,28 +25,16 @@ public abstract class Animal
          this.health -= damage;
    }
    
-   final public int getAttackDamage(){
-      return (int)((this.speed * 0.15) + (this.power * 0.20) + (this.accuracy * 0.25));
-   }
-   
-   final public int getNegation(){
-      return (int)((this.speed * 0.10) + (this.power * 0.05) + (this.accuracy * 0.05));
-   }
-   
-   final public char run(Animal other){
-      char choice = interact(other);
-      
-      if (choice == 'I'){
-         System.out.println(this.name + " decides to rest to restore " + ((int)(Math.pow(this.health, -1) * 1000)) + "hp!");
-         this.health += (int)(Math.pow(this.health, -1) * 1000);
-      }
-      
-      return choice;
+   final public void heal(int amount, String passcode){
+      if(passcode.equals(SurvivalOfTheFittest.life.passcode()))
+         this.health += amount;
+      else
+         System.out.println(this.name + " is cheating!");
    }
    
    // ToDo: vVv these abstract methods vVv
-   public abstract String getName();
+   public abstract String toString();
    
-   // returns D->Defend, A->Attack, I->Ignore
+   // returns D->Defend, A->Attack, I->Ignore, R->Rest
    public abstract char interact(Animal other);
 }

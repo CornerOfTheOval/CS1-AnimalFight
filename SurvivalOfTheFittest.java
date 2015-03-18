@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class SurvivalOfTheFittest
 {
    private static ArrayList<Animal> animals = new ArrayList<Animal>();
-   private static Life life = new Life();
+   public static Life life = new Life();
    
    public static void main(String[] args)
    {
@@ -14,7 +14,10 @@ public class SurvivalOfTheFittest
       while(animals.size() > 1)
          life.survive(animals);
          
-      System.out.println("The sole survivor is... " + animals.get(0).getName().toUpperCase());
+      if (animals.size() > 0)   
+         System.out.println("The sole survivor is... " + animals.get(0).toString().toUpperCase());
+      else
+         System.out.println("There is no survivor...");
    }
    
    public static void checkForCheaters()
@@ -26,7 +29,7 @@ public class SurvivalOfTheFittest
          if(checkedAnimal.getHealth() <= checkedAnimal.getSpeed()
                                       + checkedAnimal.getPower()
                                       + checkedAnimal.getAccuracy()){
-            System.out.println(checkedAnimal.getName() + " has decided to cheat...");
+            System.out.println(checkedAnimal + " has decided to cheat...");
             animals.remove(i);
             continue;                                
          }
@@ -37,9 +40,11 @@ public class SurvivalOfTheFittest
    
    public static void addAnimals()
    {
-      animals.add(new ExampleAnimal("one"));
-      animals.add(new ExampleAnimal("two"));
-      animals.add(new ExampleAnimal("three"));
+      animals.add(new ExampleAnimal("One"));
+      animals.add(new ExampleAnimal("Two"));
+      animals.add(new ExampleAnimal("Three"));
+      animals.add(new ExampleAnimal("Four"));
+      animals.add(new ExampleAnimal("Five"));
    }
    
 }
