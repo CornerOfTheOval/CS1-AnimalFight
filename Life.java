@@ -161,4 +161,38 @@ public class Life
          animal.heal(restoredHealth);
       }
    }
+   
+   public void checkForCheaters(ArrayList<Animal> animals)
+   {
+      for(int i = 0; i < animals.size();)
+      {
+         Animal checkedAnimal = animals.get(i);
+         
+         if(100 <= (checkedAnimal.getSpeed()
+                  + checkedAnimal.getPower()
+                  + checkedAnimal.getAccuracy())){
+            System.out.println(checkedAnimal + " is disqualified for trying to cheat...");
+            animals.remove(i);
+            continue;                                
+         }
+         
+         i++;
+      }
+   }
+   
+   public static void sortAnimals(ArrayList<Animal> animals){
+      Animal fastestAnimal = null;
+      ArrayList<Animal> newAnimals = new ArrayList<Animal>(animals.size());
+      while (animals.size() > 0){
+         fastestAnimal = animals.get(0);
+         for (Animal newAnimal : animals){
+            if (newAnimal.getSpeed() > fastestAnimal.getSpeed()){
+               fastestAnimal = newAnimal;
+            }
+         }
+         newAnimals.add(fastestAnimal);
+         animals.remove(fastestAnimal);
+      }
+      animals.addAll(newAnimals);
+   }
 }

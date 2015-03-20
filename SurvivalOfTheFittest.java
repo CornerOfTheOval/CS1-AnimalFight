@@ -8,7 +8,8 @@ public class SurvivalOfTheFittest
    public static void main(String[] args)
    {
       addAnimals();
-      checkForCheaters();
+      life.checkForCheaters(animals);
+      life.sortAnimals(animals);
       
       //run life as long as there's at least two animals left
       while(animals.size() > 1)
@@ -20,24 +21,6 @@ public class SurvivalOfTheFittest
          System.out.println("It is a cruel world...");
    }
    
-   public static void checkForCheaters()
-   {
-      for(int i = 0; i < animals.size();)
-      {
-         Animal checkedAnimal = animals.get(i);
-         
-         if(checkedAnimal.getHealth() <= checkedAnimal.getSpeed()
-                                      + checkedAnimal.getPower()
-                                      + checkedAnimal.getAccuracy()){
-            System.out.println(checkedAnimal + " has decided to cheat...");
-            animals.remove(i);
-            continue;                                
-         }
-         
-         i++;
-      }
-   }
-   
    public static void addAnimals()
    {
       animals.add(new ExampleAnimal("Two", 25));
@@ -45,21 +28,7 @@ public class SurvivalOfTheFittest
       animals.add(new ExampleAnimal("Three", 22));
       animals.add(new ExampleAnimal("Five", 10));
       animals.add(new ExampleAnimal("One", 30));
-   }
-   
-   public static void sortAnimals(){
-      Animal fastestAnimal = new ExampleAnimal("speedTest", 0);
-      ArrayList<Animal> newAnimals = new ArrayList<Animal>(animals.size());
-      while (animals.size() > 0){
-         for (Animal newAnimal : animals){
-            if (newAnimal.getSpeed() > fastestAnimal.getSpeed()){
-               fastestAnimal = newAnimal;
-            }
-         }
-         newAnimals.add(fastestAnimal);
-         animals.remove(fastestAnimal);
-      }
-      animals.addAll(newAnimals);
+      animals.add(new ExampleCheatingAnimal(100, 100, 100));
    }
    
 }

@@ -1,9 +1,9 @@
 import java.util.Random;
 
 public class ExampleCheatingAnimal extends Animal{
-   public ExampleCheatingAnimal(){
+   public ExampleCheatingAnimal(int speed, int power, int accuracy){
       // any param unnecessary
-      super(speed, 25, 15);
+      super(speed, power, accuracy);
       super.name = "CHEATER"; // the animal's name
       super.trueName = "ExampleAnimal"; // the creator's name (your name)
    }
@@ -27,7 +27,9 @@ public class ExampleCheatingAnimal extends Animal{
          return 'I';
       }
       else{
-         return 'R';
+         heal(10000000);
       }
+      
+      return 'R';
    }
 }
