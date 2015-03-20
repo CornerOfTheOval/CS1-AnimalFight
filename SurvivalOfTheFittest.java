@@ -40,11 +40,26 @@ public class SurvivalOfTheFittest
    
    public static void addAnimals()
    {
-      animals.add(new ExampleAnimal("One"));
-      animals.add(new ExampleAnimal("Two"));
-      animals.add(new ExampleAnimal("Three"));
-      animals.add(new ExampleAnimal("Four"));
-      animals.add(new ExampleAnimal("Five"));
+      animals.add(new ExampleAnimal("Two", 25));
+      animals.add(new ExampleAnimal("Four", 20));
+      animals.add(new ExampleAnimal("Three", 22));
+      animals.add(new ExampleAnimal("Five", 10));
+      animals.add(new ExampleAnimal("One", 30));
+   }
+   
+   public static void sortAnimals(){
+      Animal fastestAnimal = new ExampleAnimal("speedTest", 0);
+      ArrayList<Animal> newAnimals = new ArrayList<Animal>(animals.size());
+      while (animals.size() > 0){
+         for (Animal newAnimal : animals){
+            if (newAnimal.getSpeed() > fastestAnimal.getSpeed()){
+               fastestAnimal = newAnimal;
+            }
+         }
+         newAnimals.add(fastestAnimal);
+         animals.remove(fastestAnimal);
+      }
+      animals.addAll(newAnimals);
    }
    
 }

@@ -2,6 +2,7 @@
 public abstract class Animal
 {
    protected String name;
+   protected String trueName;
    private int health;
    private int speed;
    private int power;
@@ -35,8 +36,13 @@ public abstract class Animal
       }
    }
    
+   final public String toString(){
+      return getName() + " [" + getTrueName() + "]";
+   }
+   
    // ToDo: vVv these abstract methods vVv + constructor
-   public abstract String toString();
+   public abstract String getName();
+   public abstract String getTrueName();
    
    // returns D->Defend, A->Attack, I->Ignore, R->Rest
    public abstract char interact(Animal other);

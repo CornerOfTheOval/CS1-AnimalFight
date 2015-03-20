@@ -1,10 +1,10 @@
 import java.util.Random;
 
-public class ExampleAnimal extends Animal{
-   public ExampleAnimal(String name, int speed){
+public class ExampleCheatingAnimal extends Animal{
+   public ExampleCheatingAnimal(){
       // any param unnecessary
       super(speed, 25, 15);
-      super.name = name; // the animal's name
+      super.name = "CHEATER"; // the animal's name
       super.trueName = "ExampleAnimal"; // the creator's name (your name)
    }
 
