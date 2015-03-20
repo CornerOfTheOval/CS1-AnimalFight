@@ -146,11 +146,19 @@ public class Life
       return (int)((animal.getSpeed() * 0.10) + (animal.getPower() * 0.05) + (animal.getAccuracy() * 0.05));
    }
    
-   private boolean getDodge(Animal animalOne, Animal animalTwo){
-      int dodgeChance = (int)((animalOne.getSpeed() * 0.25) + (animalOne.getAccuracy() * 0.1));
-      int hitChance = (int)((animalTwo.getSpeed() * 0.1) + (animalTwo.getAccuracy() * 0.25));
+   private boolean getDodge(Animal animal){
+      int dodgeChance = (int)((animal.getSpeed() * 0.25) + (animal.getAccuracy() * 0.1));
       
-      if (new Random().nextInt(hitChance) > new Random().nextInt(dodgeChance)){
+      if (new Random().nextInt(90) + 10 < new Random().nextInt(dodgeChance)){
+         return true;
+      }
+      return false;
+   }
+   
+   private boolean getHit(Animal animal){
+      int hitChance = (int)((animal.getSpeed() * 0.1) + (animal.getAccuracy() * 0.25));
+      
+      if (new Random().nextInt(90) + 10 < new Random().nextInt(hitChance)){
          return true;
       }
       return false;
