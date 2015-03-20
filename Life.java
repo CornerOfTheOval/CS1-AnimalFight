@@ -123,13 +123,13 @@ public class Life
       }
    }
    
-   public String passcode(){
+   public boolean healCheck(){
       if (healing){
          healing = false;
-         return "healGood";
+         return true;
       }
       else{
-         return "";
+         return false;
       }
    }
    
@@ -150,7 +150,7 @@ public class Life
       else{
          System.out.println("..." + animal + " rests successfully and restores " + restoredHealth + "hp.");
          healing = true;
-         animal.heal(restoredHealth, "healGood");
+         animal.heal(restoredHealth);
       }
    }
 }

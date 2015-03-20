@@ -25,8 +25,8 @@ public abstract class Animal
          this.health -= damage;
    }
    
-   final public void heal(int amount, String passcode){
-      if(passcode.equals(SurvivalOfTheFittest.life.passcode()))
+   final public void heal(int amount){
+      if(new Life().healCheck())
          this.health += amount;
       else
          System.out.println(this.name + " is cheating!");

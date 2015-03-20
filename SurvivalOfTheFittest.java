@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class SurvivalOfTheFittest
 {
    private static ArrayList<Animal> animals = new ArrayList<Animal>();
-   public static Life life = new Life();
+   private static Life life = new Life();
    
    public static void main(String[] args)
    {
