@@ -32,7 +32,7 @@ public abstract class Animal
          System.out.println(this.name + " is cheating!");
    }
    
-   // ToDo: vVv these abstract methods vVv
+   // ToDo: vVv these abstract methods vVv + constructor
    public abstract String toString();
    
    // returns D->Defend, A->Attack, I->Ignore, R->Rest
