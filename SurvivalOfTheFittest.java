@@ -17,7 +17,7 @@ public class SurvivalOfTheFittest
       if (animals.size() > 0)   
          System.out.println("The sole survivor is... " + animals.get(0).toString().toUpperCase());
       else
-         System.out.println("There is no survivor...");
+         System.out.println("It is a cruel world...");
    }
    
    public static void checkForCheaters()

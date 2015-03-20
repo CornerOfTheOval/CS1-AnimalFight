@@ -26,10 +26,13 @@ public abstract class Animal
    }
    
    final public void heal(int amount){
-      if(new Life().healCheck())
+      if(new Life().healCheck()){
          this.health += amount;
-      else
-         System.out.println(this.name + " is cheating!");
+      }
+      else{
+         System.out.println(this.name + " is killed for cheating!");
+         this.health = 0;
+      }
    }
    
    // ToDo: vVv these abstract methods vVv + constructor

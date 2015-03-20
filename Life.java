@@ -9,7 +9,6 @@ public class Life
    public Life() 
    {
       randGen = new Random();
-      healing = false;
    }
    
    public void survive(ArrayList<Animal> theAnimals)
@@ -19,6 +18,8 @@ public class Life
          int opp = randGen.nextInt(theAnimals.size());
          Animal one = theAnimals.get(i);
          Animal two = theAnimals.get(opp);
+         boolean oneHit = false;
+         boolean twoHit = false;
          
          // returns D->Defend, A->Attack, I->Ignore
          char rOne = one.interact(two);
@@ -62,9 +63,12 @@ public class Life
                one.setDamage(getAttackDamage(two));
                System.out.println(two + " is hit for " + getAttackDamage(one) + "hp!");
                two.setDamage(getAttackDamage(one));
+               twoHit = true;
+               oneHit = true;
             }
             else if(rOne == 'A'){
                System.out.println("..." + one + " attacks " + two + "!");
+               twoHit = true;
                if (rTwo == 'D'){
                   System.out.println("..." + two + " defends itself!");
                   System.out.println(two + " is hit for " + (getAttackDamage(one) - getNegation(two)) + "hp!");
@@ -84,6 +88,7 @@ public class Life
             }
             else if(rTwo == 'A'){
                System.out.println("..." + one + " is attacked by " + two + "!");
+               oneHit = true;
                if (rOne == 'D'){
                   System.out.println("..." + one + " defends itself!");
                   System.out.println(one + " is hit for " + (getAttackDamage(two) - getNegation(one)) + "hp!");
@@ -100,23 +105,23 @@ public class Life
                   one.setDamage(getAttackDamage(two) * 2);
                }
             }
-            
-            if (one.getHealth() <= 0){
-               System.out.println(one + " dies!");
-               theAnimals.remove(one);
-               i--;
-            }
-            if (two.getHealth() <= 0){
-               System.out.println(two + " dies!");
-               theAnimals.remove(two);
-            }
          }
          
          if (rOne == 'R'){
-            rest(one);
+            rest(one, oneHit);
          }
          if (rTwo == 'R' && i != opp){
-            rest(two);
+            rest(two, twoHit);
+         }
+         
+         if (one.getHealth() <= 0){
+            System.out.println(one + " dies!");
+            theAnimals.remove(one);
+            i--;
+         }
+         if (two.getHealth() <= 0){
+            System.out.println(two + " dies!");
+            theAnimals.remove(two);
          }
          
          System.out.println("\n");
@@ -141,11 +146,14 @@ public class Life
       return (int)((animal.getSpeed() * 0.10) + (animal.getPower() * 0.05) + (animal.getAccuracy() * 0.05));
    }
    
-   private void rest(Animal animal){
+   private void rest(Animal animal, boolean hit){
       int restoredHealth = (int)(Math.pow(animal.getHealth(), -1) * 1000);
       
       if (restoredHealth > 50 || restoredHealth < 0){
          System.out.println("..." + animal + " is hurt to badly to rest!");
+      }
+      else if (hit){
+         System.out.println("..." + animal + " was attacked while attempting to rest!");
       }
       else{
          System.out.println("..." + animal + " rests successfully and restores " + restoredHealth + "hp.");
