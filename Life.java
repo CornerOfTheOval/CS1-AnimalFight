@@ -59,50 +59,91 @@ public class Life
             }
             else if(rOne == 'A' && rTwo == 'A'){
                System.out.println("...They attack each other!");
-               System.out.println(one + " is hit for " + getAttackDamage(two) + "hp!");
-               one.setDamage(getAttackDamage(two));
-               System.out.println(two + " is hit for " + getAttackDamage(one) + "hp!");
-               two.setDamage(getAttackDamage(one));
-               twoHit = true;
-               oneHit = true;
+               if (getHit(two)){
+                  if (!getDodge(one)){
+                     System.out.println(one + " is hit for " + getAttackDamage(two) + "hp!");
+                     one.setDamage(getAttackDamage(two));
+                     oneHit = true;
+                  }
+                  else{
+                     System.out.println(one + " dodges!");
+                  }
+               }
+               else{
+                  System.out.println(two + " misses!");
+               }
+               
+               if (getHit(one)){
+                  if (!getDodge(two)){
+                     System.out.println(two + " is hit for " + getAttackDamage(one) + "hp!");
+                     two.setDamage(getAttackDamage(one));
+                     twoHit = true;
+                  }
+                  else{
+                     System.out.println(two + " dodges!");
+                  }  
+               }
+               else{
+                  System.out.println(one + " misses!");
+               }
             }
             else if(rOne == 'A'){
                System.out.println("..." + one + " attacks " + two + "!");
-               twoHit = true;
-               if (rTwo == 'D'){
-                  System.out.println("..." + two + " defends itself!");
-                  System.out.println(two + " is hit for " + (getAttackDamage(one) - getNegation(two)) + "hp!");
-                  two.setDamage(getAttackDamage(one) - getNegation(two));
-               }
-               else if (rTwo == 'I'){
-                  System.out.println("..." + two + " is caught unaware...");
-                  System.out.println(two + " is hit for " + getAttackDamage(one) + "hp!");
-                  two.setDamage(getAttackDamage(one));
+               if (getHit(one)){
+                  if (!getDodge(two)){
+                     twoHit = true;
+                     if (rTwo == 'D'){
+                        System.out.println("..." + two + " defends itself!");
+                        System.out.println(two + " is hit for " + (getAttackDamage(one) - getNegation(two)) + "hp!");
+                        two.setDamage(getAttackDamage(one) - getNegation(two));
+                     }
+                     else if (rTwo == 'I'){
+                        System.out.println("..." + two + " is caught unaware...");
+                        System.out.println(two + " is hit for " + getAttackDamage(one) + "hp!");
+                        two.setDamage(getAttackDamage(one));
+                     }
+                     else{
+                        System.out.println("..." + two + " is caught while vulnerable...");
+                        System.out.println(two + " is hit for " + (getAttackDamage(one) * 2) + "hp!");
+                        two.setDamage(getAttackDamage(one) * 2);
+                     }
+                  }
+                  else{
+                     System.out.println(two + " dodges!");
+                  }
                }
                else{
-                  System.out.println("..." + two + " is caught while vulnerable...");
-                  System.out.println(two + " is hit for " + (getAttackDamage(one) * 2) + "hp!");
-                  two.setDamage(getAttackDamage(one) * 2);
+                  System.out.println(one + " misses!");
                }
                
             }
             else if(rTwo == 'A'){
                System.out.println("..." + one + " is attacked by " + two + "!");
-               oneHit = true;
-               if (rOne == 'D'){
-                  System.out.println("..." + one + " defends itself!");
-                  System.out.println(one + " is hit for " + (getAttackDamage(two) - getNegation(one)) + "hp!");
-                  one.setDamage(getAttackDamage(two) - getNegation(one));
-               }
-               else if (rOne == 'I'){
-                  System.out.println("..." + one + " is caught unaware...");
-                  System.out.println(one + " is hit for " + getAttackDamage(two) + "hp!");
-                  one.setDamage(getAttackDamage(two));
+               if (getHit(two)){
+                  if (!getDodge(one)){
+                     oneHit = true;
+                     if (rOne == 'D'){
+                        System.out.println("..." + one + " defends itself!");
+                        System.out.println(one + " is hit for " + (getAttackDamage(two) - getNegation(one)) + "hp!");
+                        one.setDamage(getAttackDamage(two) - getNegation(one));
+                     }
+                     else if (rOne == 'I'){
+                        System.out.println("..." + one + " is caught unaware...");
+                        System.out.println(one + " is hit for " + getAttackDamage(two) + "hp!");
+                        one.setDamage(getAttackDamage(two));
+                     }
+                     else{
+                        System.out.println("..." + one + " is caught while vulnerable...");
+                        System.out.println(one + " is hit for " + (getAttackDamage(two) * 2) + "hp!");
+                        one.setDamage(getAttackDamage(two) * 2);
+                     }
+                  }
+                  else{
+                     System.out.println(one + " dodges!");
+                  }
                }
                else{
-                  System.out.println("..." + one + " is caught while vulnerable...");
-                  System.out.println(one + " is hit for " + (getAttackDamage(two) * 2) + "hp!");
-                  one.setDamage(getAttackDamage(two) * 2);
+                  System.out.println(two + " misses!");
                }
             }
          }
@@ -149,16 +190,16 @@ public class Life
    private boolean getDodge(Animal animal){
       int dodgeChance = (int)((animal.getSpeed() * 0.25) + (animal.getAccuracy() * 0.1));
       
-      if (new Random().nextInt(90) + 10 < new Random().nextInt(dodgeChance)){
+      if (new Random().nextInt(dodgeChance / 4) + 10 < new Random().nextInt(dodgeChance / 2) + dodgeChance){
          return true;
       }
       return false;
    }
    
    private boolean getHit(Animal animal){
-      int hitChance = (int)((animal.getSpeed() * 0.1) + (animal.getAccuracy() * 0.25));
+      int hitChance = (int)((animal.getSpeed() * 0.25) + (animal.getAccuracy() * 0.30));
       
-      if (new Random().nextInt(90) + 10 < new Random().nextInt(hitChance)){
+      if (new Random().nextInt(hitChance / 4) + 10 < new Random().nextInt(hitChance / 2) + hitChance){
          return true;
       }
       return false;
