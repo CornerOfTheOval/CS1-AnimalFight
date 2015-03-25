@@ -20,10 +20,14 @@ public class Life
          Animal two = theAnimals.get(opp);
          boolean oneHit = false;
          boolean twoHit = false;
+         int oneDmg = 0;
+         int twoDmg = 0;
          
          // returns D->Defend, A->Attack, I->Ignore
          char rOne = one.interact(two);
          char rTwo = two.interact(one);
+         
+         System.out.println("----------" + one + "----------");
          
          if (rOne == 'R'){
             System.out.println(one + " attempts to rest...");
@@ -36,148 +40,129 @@ public class Life
             System.out.println(one + " encounters no one.");
             //System.out.print(rOne); // Debug
          }
-         else
-         {
-            System.out.println(one + " encounters " + two + ".");
-            
-            
-
+         else{
+         
+            System.out.println(one + " encounters " + two + "...");
             
             //System.out.print("1: " + rOne + "| 2: " + rTwo + "\n"); // Debug
             
+            if (one.getSpeed() >= two.getSpeed()){
+               if(rOne == 'A'){
+                  twoDmg = attack(one, two, rTwo);
+                  two.setDamage(twoDmg);
+                  if (rTwo == 'A'){
+                     if (checkDead(two)){
+                        oneDmg = (attack(two, one, rOne) / 2);
+                        theAnimals.remove(two);
+                     }
+                     else{
+                        oneDmg = attack(two, one, rOne);
+                     }
+                  }
+               }
+               one.setDamage(oneDmg);
+            }
+            else{
+               if(rTwo == 'A'){
+                  oneDmg = attack(two, one, rOne);
+                  one.setDamage(oneDmg);
+                  if (rOne == 'A'){
+                     if (checkDead(one)){
+                        twoDmg = (attack(one, two, rTwo) / 2);
+                        theAnimals.remove(one);
+                     }
+                     else{
+                        twoDmg = attack(one, two, rTwo);
+                     }
+                  }
+               }
+               two.setDamage(twoDmg);
+            }
             
-            if((rOne == 'I' && rTwo == 'I') || 
-               (rOne == 'D' && rTwo == 'D') ||
-               (rOne == 'I' && rTwo == 'D') ||
-               (rOne == 'D' && rTwo == 'I') ||
-               (rOne == 'R' && rTwo == 'R') || 
-               (rOne == 'R' && rTwo == 'D') ||
-               (rOne == 'D' && rTwo == 'R') ||
-               (rOne == 'I' && rTwo == 'R') ||
-               (rOne == 'R' && rTwo == 'I')){
-               System.out.println("...They ignore each other.");
+            if (oneDmg == 0 && twoDmg == 0){
+               System.out.println("...Nothing really happened.");
             }
-            else if(rOne == 'A' && rTwo == 'A'){
-               System.out.println("...They attack each other!");
-               if (getHit(two)){
-                  if (!getDodge(one)){
-                     System.out.println(one + " is hit for " + getAttackDamage(two) + "hp!");
-                     one.setDamage(getAttackDamage(two));
-                     oneHit = true;
-                  }
-                  else{
-                     System.out.println(one + " dodges!");
-                  }
-               }
-               else{
-                  System.out.println(two + " misses!");
-               }
-               
-               if (getHit(one)){
-                  if (!getDodge(two)){
-                     System.out.println(two + " is hit for " + getAttackDamage(one) + "hp!");
-                     two.setDamage(getAttackDamage(one));
-                     twoHit = true;
-                  }
-                  else{
-                     System.out.println(two + " dodges!");
-                  }  
-               }
-               else{
-                  System.out.println(one + " misses!");
-               }
-            }
-            else if(rOne == 'A'){
-               System.out.println("..." + one + " attacks " + two + "!");
-               if (getHit(one)){
-                  if (!getDodge(two)){
-                     twoHit = true;
-                     if (rTwo == 'D'){
-                        System.out.println("..." + two + " defends itself!");
-                        System.out.println(two + " is hit for " + (getAttackDamage(one) - getNegation(two)) + "hp!");
-                        two.setDamage(getAttackDamage(one) - getNegation(two));
-                     }
-                     else if (rTwo == 'I'){
-                        System.out.println("..." + two + " is caught unaware...");
-                        System.out.println(two + " is hit for " + getAttackDamage(one) + "hp!");
-                        two.setDamage(getAttackDamage(one));
-                     }
-                     else{
-                        System.out.println("..." + two + " is caught while vulnerable...");
-                        System.out.println(two + " is hit for " + (getAttackDamage(one) * 2) + "hp!");
-                        two.setDamage(getAttackDamage(one) * 2);
-                     }
-                  }
-                  else{
-                     System.out.println(two + " dodges!");
-                  }
-               }
-               else{
-                  System.out.println(one + " misses!");
-               }
-               
-            }
-            else if(rTwo == 'A'){
-               System.out.println("..." + one + " is attacked by " + two + "!");
-               if (getHit(two)){
-                  if (!getDodge(one)){
-                     oneHit = true;
-                     if (rOne == 'D'){
-                        System.out.println("..." + one + " defends itself!");
-                        System.out.println(one + " is hit for " + (getAttackDamage(two) - getNegation(one)) + "hp!");
-                        one.setDamage(getAttackDamage(two) - getNegation(one));
-                     }
-                     else if (rOne == 'I'){
-                        System.out.println("..." + one + " is caught unaware...");
-                        System.out.println(one + " is hit for " + getAttackDamage(two) + "hp!");
-                        one.setDamage(getAttackDamage(two));
-                     }
-                     else{
-                        System.out.println("..." + one + " is caught while vulnerable...");
-                        System.out.println(one + " is hit for " + (getAttackDamage(two) * 2) + "hp!");
-                        one.setDamage(getAttackDamage(two) * 2);
-                     }
-                  }
-                  else{
-                     System.out.println(one + " dodges!");
-                  }
-               }
-               else{
-                  System.out.println(two + " misses!");
-               }
-            }
-         }
-         
-         if (rOne == 'R'){
-            rest(one, oneHit);
-         }
-         if (rTwo == 'R' && i != opp){
-            rest(two, twoHit);
+            
+            
          }
          
          if (one.getHealth() <= 0){
             System.out.println(one + " dies!");
-            theAnimals.remove(one);
+            if (theAnimals.contains(one)){
+               theAnimals.remove(one);
+            }
             i--;
          }
          if (two.getHealth() <= 0){
             System.out.println(two + " dies!");
-            theAnimals.remove(two);
+            if (theAnimals.contains(two)){
+               theAnimals.remove(two);
+            }
+            
+            if (opp < i){
+               i--;
+            }
          }
          
-         System.out.println("\n");
+         if (rOne == 'R' && theAnimals.contains(one)){
+            rest(one, (oneDmg > 0) ? true : false);
+         }
+         if (rTwo == 'R' && theAnimals.contains(two) && i != opp){
+            rest(two, (twoDmg > 0) ? true : false);
+         }
+         
+         
+         
+         System.out.println("-----------[End]----------\n");
       }
    }
    
-   public boolean healCheck(){
-      if (healing){
-         healing = false;
+   private boolean checkDead(Animal animal){
+      if (animal.getHealth() <= 0){
+         System.out.println(animal + " is dying!");
          return true;
       }
-      else{
-         return false;
-      }
+      return false;
    }
+   
+   private int attack(Animal attacker, Animal defender, char defDec){
+      int attackDamage = 0;
+   
+      System.out.println("..." + attacker + " attacks " + defender + "...");
+      if (getHit(attacker)){
+         if (!getDodge(defender)){
+            if (defDec == 'D'){
+               System.out.println("..." + defender + " defends itself...");
+               attackDamage += getAttackDamage(attacker) - getNegation(defender);
+            }
+            else if (defDec == 'I'){
+               System.out.println("..." + defender + " is caught unaware...");
+               attackDamage += getAttackDamage(attacker);
+            }
+            else{
+               System.out.println("..." + defender + " is caught while vulnerable...");
+               attackDamage += getAttackDamage(attacker) * 2;
+            }
+         }
+         else{
+            System.out.println("..." + defender + " dodges...");
+         }
+      }
+      else{
+         System.out.println("..." + attacker + " misses...");
+      }
+      
+      if (attackDamage > 0 && getCritical(attacker)){
+         System.out.println("..." + attacker + " hits for critical damage...");
+         attackDamage *= 2;
+      }
+      
+      System.out.println("..." + defender + " is hit for " + attackDamage + "hp!\n");
+      
+      return attackDamage;
+   }
+   
+   
    
    private int getAttackDamage(Animal animal){
       return (int)((animal.getSpeed() * 0.15) + (animal.getPower() * 0.20) + (animal.getAccuracy() * 0.25));
@@ -185,6 +170,15 @@ public class Life
    
    private int getNegation(Animal animal){
       return (int)((animal.getSpeed() * 0.10) + (animal.getPower() * 0.05) + (animal.getAccuracy() * 0.05));
+   }
+   
+   private boolean getCritical(Animal animal){
+      int critChance = (int)((animal.getPower() * 0.25) + (animal.getSpeed() * 0.1));
+      
+      if (new Random().nextInt(critChance / 4) + 10 < new Random().nextInt(critChance / 2) + critChance){
+         return true;
+      }
+      return false;
    }
    
    private boolean getDodge(Animal animal){
@@ -253,5 +247,15 @@ public class Life
          animals.remove(fastestAnimal);
       }
       animals.addAll(newAnimals);
+   }
+   
+   public boolean healCheck(){
+      if (healing){
+         healing = false;
+         return true;
+      }
+      else{
+         return false;
+      }
    }
 }
