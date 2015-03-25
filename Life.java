@@ -113,7 +113,7 @@ public class Life
          
          
          
-         System.out.println("-----------[End]----------\n");
+         System.out.println(maintainLength(10, "[End]") +"\n");
       }
    }
    
@@ -162,7 +162,32 @@ public class Life
       return attackDamage;
    }
    
+   private String maintainLength(int length, String word){
+      String completeWord = "";
    
+      if (word.length() % 2 == 0){
+         length /= 2;
+         for (int i = 0; i < length; i++){
+            completeWord += "-";
+         }
+         completeWord += word;
+         for (int i = 0; i < length; i++){
+            completeWord += "-";
+         } 
+      }
+      else{
+         length /= 2;
+         for (int i = 0; i < length; i++){
+            completeWord += "-";
+         }
+         completeWord += word;
+         for (int i = 0; i < length; i++){
+            completeWord += "-";
+         } 
+      }
+      
+      return completeWord;
+   }
    
    private int getAttackDamage(Animal animal){
       return (int)((animal.getSpeed() * 0.15) + (animal.getPower() * 0.20) + (animal.getAccuracy() * 0.25));
