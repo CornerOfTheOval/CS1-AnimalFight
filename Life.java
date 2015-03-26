@@ -192,7 +192,7 @@ public class Life
    }
    
    private int getAttackDamage(Animal animal){
-      return (int)((animal.getSpeed() * 0.10) + (animal.getPower() * 0.20) + (animal.getAccuracy() * 0.25));
+      return (int)((animal.getSpeed() * 0.05) + (animal.getPower() * 0.30) + (animal.getAccuracy() * 0.25));
    }
    
    private int getNegation(Animal animal){

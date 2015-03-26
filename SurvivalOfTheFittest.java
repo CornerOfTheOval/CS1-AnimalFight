@@ -23,9 +23,12 @@ public class SurvivalOfTheFittest
    
    public static void addAnimals()
    {
-      animals.add(new PowerfulAnimal());
-      animals.add(new FastAnimal());
-      animals.add(new BalancedAnimal());
+      animals.add(new PowerfulAnimal("Kenny"));
+      animals.add(new FastAnimal("Alex"));
+      animals.add(new BalancedAnimal("Sara"));
+      animals.add(new PowerfulAnimal("David"));
+      animals.add(new FastAnimal("Lee"));
+      animals.add(new BalancedAnimal("Sophia"));
       animals.add(new ExampleCheatingAnimal(100, 100, 100));
    }
    

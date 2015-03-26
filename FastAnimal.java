@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public class FastAnimal extends ExampleAnimal{
-   public FastAnimal(){
-      super("Cheetah", "Alex Reed", 50, 30, 15);
+   public FastAnimal(String trueName){
+      super("Cheetah", trueName, new Random().nextInt(25) + 25, new Random().nextInt(5) + 25, 15);
    }
 }

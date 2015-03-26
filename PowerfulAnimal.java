@@ -1,7 +1,7 @@
 import java.util.Random;
 
 public class PowerfulAnimal extends ExampleAnimal{
-   public PowerfulAnimal(){
-      super("Lion", "Kenny Lee", 20, 50, 30);
+   public PowerfulAnimal(String trueName){
+      super("Lion", trueName, 20, new Random().nextInt(25) + 25, new Random().nextInt(5) + 25);
    }
 }

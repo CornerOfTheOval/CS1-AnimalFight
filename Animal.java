@@ -37,9 +37,9 @@ public abstract class Animal
    }
    
    final public void reduceStats(){
-      this.speed /= 2;
-      this.power /= 2;
-      this.accuracy /= 2;
+      this.speed = (int)(this.speed / 1.3);
+      this.power = (int)(this.power / 1.3);
+      this.accuracy = (int)(this.accuracy / 1.3);
    }
    
    final public String toString(){
