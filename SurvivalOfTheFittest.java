@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class SurvivalOfTheFittest
 {
    private static ArrayList<Animal> animals = new ArrayList<Animal>();
+   private static ArrayList<Animal> deadAnimals = new ArrayList<Animal>();
    private static Life life = new Life();
    
    public static void main(String[] args)
@@ -13,7 +14,7 @@ public class SurvivalOfTheFittest
       
       //run life as long as there's at least two animals left
       while(animals.size() > 1)
-         life.survive(animals);
+         life.survive(animals, deadAnimals);
          
       if (animals.size() > 0)   
          System.out.println("The sole survivor is... " + animals.get(0).toString().toUpperCase());

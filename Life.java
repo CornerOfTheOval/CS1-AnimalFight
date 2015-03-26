@@ -12,8 +12,9 @@ public class Life
       randGen = new Random();
    }
    
-   public void survive(ArrayList<Animal> theAnimals)
+   public void survive(ArrayList<Animal> theAnimals, ArrayList<Animal> deadAnimals)
    {
+   
       for(int i = 0; i < theAnimals.size(); i++)
       {
          int opp = randGen.nextInt(theAnimals.size());
@@ -38,6 +39,7 @@ public class Life
          }
          
          if(i == opp){
+            System.out.println(deadAnimals);
             System.out.println(one + " encounters no one.");
             //System.out.print(rOne); // Debug
          }
@@ -55,6 +57,7 @@ public class Life
                      if (checkDead(two)){
                         oneDmg = (attack(two, one, rOne) / 2);
                         theAnimals.remove(two);
+                        deadAnimals.add(two);
                      }
                      else{
                         oneDmg = attack(two, one, rOne);
@@ -71,6 +74,7 @@ public class Life
                      if (checkDead(one)){
                         twoDmg = (attack(one, two, rTwo) / 2);
                         theAnimals.remove(one);
+                        deadAnimals.add(one);
                      }
                      else{
                         twoDmg = attack(one, two, rTwo);
@@ -91,6 +95,7 @@ public class Life
             System.out.println(one + " dies!");
             if (theAnimals.contains(one)){
                theAnimals.remove(one);
+               deadAnimals.add(one);
             }
             i--;
          }
@@ -98,6 +103,7 @@ public class Life
             System.out.println(two + " dies!");
             if (theAnimals.contains(two)){
                theAnimals.remove(two);
+               deadAnimals.add(two);
             }
             
             if (opp < i){
@@ -115,7 +121,14 @@ public class Life
          
          
          System.out.println(maintainLength(50, "") +"\n");
+         showStats(theAnimals, deadAnimals);
       }
+   }
+   
+   private void showStats(ArrayList<Animal> animals, ArrayList<Animal> deadAnimals){
+      System.out.println("Stats:");
+      System.out.println(animals);
+      System.out.println(deadAnimals);
    }
    
    private boolean checkDead(Animal animal){
