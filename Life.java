@@ -27,7 +27,7 @@ public class Life
          char rOne = one.interact(two);
          char rTwo = two.interact(one);
          
-         System.out.println("----------" + one + "----------");
+         System.out.println(maintainLength(50, "[" + one.getTrueName() + "]"));
          
          if (rOne == 'R'){
             System.out.println(one + " attempts to rest...");
@@ -113,13 +113,14 @@ public class Life
          
          
          
-         System.out.println(maintainLength(10, "[End]") +"\n");
+         System.out.println(maintainLength(50, "") +"\n");
       }
    }
    
    private boolean checkDead(Animal animal){
       if (animal.getHealth() <= 0){
          System.out.println(animal + " is dying!");
+         animal.reduceStats();
          return true;
       }
       return false;
@@ -152,7 +153,7 @@ public class Life
          System.out.println("..." + attacker + " misses...");
       }
       
-      if (attackDamage > 0 && getCritical(attacker)){
+      if (attackDamage > 0 && getCritical(attacker) && getHit(attacker)){
          System.out.println("..." + attacker + " hits for critical damage...");
          attackDamage *= 2;
       }
@@ -164,8 +165,9 @@ public class Life
    
    private String maintainLength(int length, String word){
       String completeWord = "";
+      length -= word.length();
    
-      if (word.length() % 2 == 0){
+      if (length % 2 == 0){
          length /= 2;
          for (int i = 0; i < length; i++){
             completeWord += "-";
@@ -181,7 +183,7 @@ public class Life
             completeWord += "-";
          }
          completeWord += word;
-         for (int i = 0; i < length; i++){
+         for (int i = 0; i < (length + 1); i++){
             completeWord += "-";
          } 
       }
@@ -190,15 +192,19 @@ public class Life
    }
    
    private int getAttackDamage(Animal animal){
-      return (int)((animal.getSpeed() * 0.15) + (animal.getPower() * 0.20) + (animal.getAccuracy() * 0.25));
+      return (int)((animal.getSpeed() * 0.10) + (animal.getPower() * 0.20) + (animal.getAccuracy() * 0.25));
    }
    
    private int getNegation(Animal animal){
-      return (int)((animal.getSpeed() * 0.10) + (animal.getPower() * 0.05) + (animal.getAccuracy() * 0.05));
+      return (int)((animal.getSpeed() * 0.10) + (animal.getPower() * 0.15) + (animal.getAccuracy() * 0.05));
    }
    
    private boolean getCritical(Animal animal){
-      int critChance = (int)((animal.getPower() * 0.25) + (animal.getSpeed() * 0.1));
+      int critChance = (int)((animal.getPower() * 0.15) + (animal.getSpeed() * 0.1));
+      if (critChance <= 0){
+         return false;
+      }
+      
       
       if (new Random().nextInt(critChance / 4) + 10 < new Random().nextInt(critChance / 2) + critChance){
          return true;
@@ -207,7 +213,10 @@ public class Life
    }
    
    private boolean getDodge(Animal animal){
-      int dodgeChance = (int)((animal.getSpeed() * 0.25) + (animal.getAccuracy() * 0.1));
+      int dodgeChance = (int)((animal.getSpeed() * 0.15) + (animal.getAccuracy() * 0.05));
+      if (dodgeChance <= 0){
+         return false;
+      }
       
       if (new Random().nextInt(dodgeChance / 4) + 10 < new Random().nextInt(dodgeChance / 2) + dodgeChance){
          return true;
@@ -216,7 +225,10 @@ public class Life
    }
    
    private boolean getHit(Animal animal){
-      int hitChance = (int)((animal.getSpeed() * 0.25) + (animal.getAccuracy() * 0.30));
+      int hitChance = (int)((animal.getSpeed() * 0.10) + (animal.getAccuracy() * 0.40));
+      if (hitChance <= 0){
+         return false;
+      }
       
       if (new Random().nextInt(hitChance / 4) + 10 < new Random().nextInt(hitChance / 2) + hitChance){
          return true;
@@ -246,9 +258,12 @@ public class Life
       {
          Animal checkedAnimal = animals.get(i);
          
-         if(100 <= (checkedAnimal.getSpeed()
+         if((100 < (checkedAnimal.getSpeed()
                   + checkedAnimal.getPower()
-                  + checkedAnimal.getAccuracy())){
+                  + checkedAnimal.getAccuracy())) ||
+             (50 < checkedAnimal.getSpeed() ||
+              50 < checkedAnimal.getPower() ||
+              50 < checkedAnimal.getAccuracy())){
             System.out.println(checkedAnimal + " is disqualified for trying to cheat...");
             animals.remove(i);
             continue;                                

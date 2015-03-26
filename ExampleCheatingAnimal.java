@@ -27,7 +27,7 @@ public class ExampleCheatingAnimal extends Animal{
          return 'I';
       }
       else{
-         heal(10000000);
+//         heal(10000000);
       }
       
       return 'R';

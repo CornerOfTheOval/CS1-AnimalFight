@@ -36,11 +36,19 @@ public abstract class Animal
       }
    }
    
+   final public void reduceStats(){
+      this.speed /= 2;
+      this.power /= 2;
+      this.accuracy /= 2;
+   }
+   
    final public String toString(){
       return getName() + " [" + getTrueName() + "]";
    }
    
    // ToDo: vVv these abstract methods vVv + constructor
+   // note: no stat can be greater than 50,
+   //    all stats combined cannot be greater than 100
    public abstract String getName();
    public abstract String getTrueName();
    

@@ -23,11 +23,9 @@ public class SurvivalOfTheFittest
    
    public static void addAnimals()
    {
-      animals.add(new ExampleAnimal("Two", 25));
-      animals.add(new ExampleAnimal("Four", 20));
-      animals.add(new ExampleAnimal("Three", 22));
-      animals.add(new ExampleAnimal("Five", 10));
-      animals.add(new ExampleAnimal("One", 30));
+      animals.add(new PowerfulAnimal());
+      animals.add(new FastAnimal());
+      animals.add(new BalancedAnimal());
       animals.add(new ExampleCheatingAnimal(100, 100, 100));
    }
    
