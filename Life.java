@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Collections;
 
 public class Life
 {
@@ -252,6 +253,10 @@ public class Life
       }
    }
    
+   public int compare(Animal firstAnimal, Animal secondAnimal){
+      return firstAnimal.getSpeed() - secondAnimal.getSpeed();
+   }
+   
    public void checkForCheaters(ArrayList<Animal> animals)
    {
       for(int i = 0; i < animals.size();)
@@ -274,19 +279,7 @@ public class Life
    }
    
    public static void sortAnimals(ArrayList<Animal> animals){
-      Animal fastestAnimal = null;
-      ArrayList<Animal> newAnimals = new ArrayList<Animal>(animals.size());
-      while (animals.size() > 0){
-         fastestAnimal = animals.get(0);
-         for (Animal newAnimal : animals){
-            if (newAnimal.getSpeed() > fastestAnimal.getSpeed()){
-               fastestAnimal = newAnimal;
-            }
-         }
-         newAnimals.add(fastestAnimal);
-         animals.remove(fastestAnimal);
-      }
-      animals.addAll(newAnimals);
+      Collections.sort(animals);
    }
    
    public boolean healCheck(){

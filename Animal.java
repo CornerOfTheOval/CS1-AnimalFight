@@ -1,5 +1,5 @@
 
-public abstract class Animal
+public abstract class Animal implements Comparable
 {
    protected String name;
    protected String trueName;
@@ -44,6 +44,12 @@ public abstract class Animal
    
    final public String toString(){
       return getName() + " [" + getTrueName() + "]";
+   }
+   
+   final public int compareTo(Object other){
+      Animal otherAnimal = (Animal)other;
+      
+      return -(new Life().compare(this, otherAnimal));
    }
    
    // ToDo: vVv these abstract methods vVv + constructor
