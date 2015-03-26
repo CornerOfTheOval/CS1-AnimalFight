@@ -127,8 +127,22 @@ public class Life
    
    private void showStats(ArrayList<Animal> animals, ArrayList<Animal> deadAnimals){
       System.out.println("Stats:");
-      System.out.println(animals);
-      System.out.println(deadAnimals);
+      System.out.println(tableLine(50, "Alive:", "Dead:"));
+      int length = (animals.size() > deadAnimals.size()) ? animals.size() : deadAnimals.size();
+      
+      for (int i = 0; i < length; i++){
+         String rightLine = "";
+         String leftLine = "";
+      
+         if (i < deadAnimals.size()){
+            rightLine = deadAnimals.get(i).toString();
+         }
+         if (i < animals.size()){
+            leftLine = animals.get(i).toString();
+         }
+         
+         System.out.println(tableLine(50, leftLine, rightLine));
+      }
    }
    
    private boolean checkDead(Animal animal){
@@ -175,6 +189,23 @@ public class Life
       System.out.println("..." + defender + " is hit for " + attackDamage + "hp!\n");
       
       return attackDamage;
+   }
+   
+   private String tableLine(int length, String wordLeft, String wordRight){
+      wordLeft.trim();
+      wordRight.trim();
+   
+      String toReturn = wordLeft;
+      length -= wordLeft.length();
+      length -= wordRight.length();
+      
+      for (int i = 0; i < length; i++){
+         toReturn += " ";
+      }
+      
+      toReturn += wordRight;
+      
+      return toReturn;
    }
    
    private String maintainLength(int length, String word){
